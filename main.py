@@ -81,17 +81,17 @@ def main(train, evaluate):
         model_RAG, index = getRAG('all-MiniLM-L6-v2', all_instructions) ## do RAG on whole datasets
         model = PeftModel.from_pretrained(base_model, "./mistral_dolly_lora")
 
-        # print("1) Base model, no RAG")
-        # bleu1, f11, bertf11 = evaluate_model(base_model, val_dataset, index, tokenizer, model_RAG, all_instructions, use_rag=False, n=200)
-        # with open("performance.txt", "a") as f:
-        #     f.write("1) Base model, no RAG\n")
-        #     f.write(f"BLEU {bleu1} F1: {f11}, BERT: {bertf11}\n")
+        print("1) Base model, no RAG")
+        bleu1, f11, bertf11 = evaluate_model(base_model, val_dataset, index, tokenizer, model_RAG, all_instructions, use_rag=False, n=200)
+        with open("performance.txt", "a") as f:
+            f.write("1) Base model, no RAG\n")
+            f.write(f"BLEU {bleu1} F1: {f11}, BERT: {bertf11}\n")
 
-        # print("2) Base model, RAG")
-        # bleu2, f12, bertf12 = evaluate_model(base_model, val_dataset, index, tokenizer, model_RAG, all_instructions, use_rag=True, n=200)
-        # with open("performance.txt", "a") as f:
-        #     f.write("2) Base model, RAG\n")
-        #     f.write(f"BLEU {bleu2} F1: {f12}, BERT: {bertf12}\n")
+        print("2) Base model, RAG")
+        bleu2, f12, bertf12 = evaluate_model(base_model, val_dataset, index, tokenizer, model_RAG, all_instructions, use_rag=True, n=200)
+        with open("performance.txt", "a") as f:
+            f.write("2) Base model, RAG\n")
+            f.write(f"BLEU {bleu2} F1: {f12}, BERT: {bertf12}\n")
 
         print("3) Fine-tuned model, no RAG")
         bleu3, f13, bertf13 = evaluate_model(model, val_dataset, index, tokenizer, model_RAG, all_instructions, use_rag=False, n=200)
@@ -99,11 +99,11 @@ def main(train, evaluate):
             f.write("3) Fine-tuned model, no RAG\n")
             f.write(f"BLEU {bleu3} F1: {f13}, BERT: {bertf13}\n")
 
-        # print("4) Fine-tuned model, RAG")
-        # bleu4, f14, bertf14 = evaluate_model(model, val_dataset, index, tokenizer,  model_RAG, all_instructions, use_rag=True, n=200)
-        # with open("performance.txt", "a") as f:
-        #     f.write("4) Fine-tuned model, RAG\n")
-        #     f.write(f"BLEU {bleu4} F1: {f14}, BERT: {bertf14}\n")
+        print("4) Fine-tuned model, RAG")
+        bleu4, f14, bertf14 = evaluate_model(model, val_dataset, index, tokenizer,  model_RAG, all_instructions, use_rag=True, n=200)
+        with open("performance.txt", "a") as f:
+            f.write("4) Fine-tuned model, RAG\n")
+            f.write(f"BLEU {bleu4} F1: {f14}, BERT: {bertf14}\n")
 
 
     return
